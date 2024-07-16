@@ -1,0 +1,82 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-top: 64px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+/* 헤더 */
+
+.logo {
+  width: 150px;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.menu {
+    padding-top: 20px;
+  }
+
+header > ul {
+  display: flex;
+  cursor: pointer;
+}
+
+header a,
+header ul li {
+  width: 130px;
+}
+
+header > ul > li > ul {
+  display: none;
+}
+
+header > ul:hover ul {
+  display: block;
+  animation: fadein 0.5s;
+}
+
+header ul li ul li {
+  padding: 15px 0;
+}
+
+header ul li ul li a:hover {
+  color: gray;
+}
+
+header ul li ul li:hover {
+  background-color: aquamarine;
+}
+
+header > ul > li:hover span {
+  background-color: aqua;
+}
