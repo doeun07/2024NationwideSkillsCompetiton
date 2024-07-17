@@ -120,9 +120,12 @@ footer > div > a:hover {
 }
 
 /* visual 영역 */
-.visual {
+.visual,
+.hotspot {
   display: flex;
   justify-content: center;
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 @keyframes progressBar {
@@ -165,5 +168,111 @@ footer > div > a:hover {
 .slides {
   width: 100%;
   animation: slide 9s linear infinite;
+}
 
+/* 핫스팟 영역 */
+.hotspot input {
+  display: none;
+}
+
+.hotspot label {
+  padding: 0 10px;
+}
+
+.hotspot_div {
+  width: 700px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.hotspot_img {
+  width: 700px;
+  height: 600px;
+  transition: 0.3s ease-out;
+}
+
+.hotspot-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hotspot .hotspot-container #hotspot1:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(260px) translateY(220px);
+}
+
+.hotspot .hotspot-container #hotspot2:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(170px) translateY(140px);
+}
+
+.hotspot .hotspot-container #hotspot3:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(50px) translateY(40px);
+}
+
+.hotspot .hotspot-container #hotspot4:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(50px) translateY(-80px);
+}
+
+.hotspot .hotspot-container #hotspot5:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(-220px) translateY(-110px);
+}
+
+.hotspot .hotspot-container #hotspot6:checked ~ .hotspot_div > .hotspot_img {
+  transform: scale(4) translateX(-220px) translateY(10px);
+}
+
+#hotspot1:checked ~ .hotspot_div:hover #신라대종설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+#hotspot2:checked ~ .hotspot_div:hover #대릉원돌담길설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+#hotspot3:checked ~ .hotspot_div:hover #첨성대설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+#hotspot4:checked ~ .hotspot_div:hover #경주계림설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+#hotspot5:checked ~ .hotspot_div:hover #월성설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+#hotspot6:checked ~ .hotspot_div:hover #동궁과월지설명 {
+  animation: fadein 0.5s;
+  display: flex;
+}
+
+/* 핫스팟 -> 모달 */
+.hotspot_div {
+  position: relative;
+}
+.main_image_text {
+  width: 400px;
+  height: 400px;
+  padding: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  background-color: white;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+}
+
+.main_image_text p {
+  font-size: 12px;
+}
+
+.main_image_text h1{
+  margin-bottom: 20px;
+  font-weight: 300;
 }
