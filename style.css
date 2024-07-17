@@ -276,3 +276,43 @@ footer > div > a:hover {
   margin-bottom: 20px;
   font-weight: 300;
 }
+
+/* 경주사계 */
+.경주사계 {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.경주사계 input {
+  display: none;
+}
+
+.경주사계 label {
+  padding: 0 15px;
+  border-radius: 10px;
+}
+
+.경주사계이미지 {
+  margin-top: 20px;
+  background-image: url(./img/보문단지벗꽃.jpg);
+  width: 700px;
+  height: 500px;
+  background-size: cover
+}
+
+#봄:checked ~ .경주사계이미지{
+  background-image: url(./img/보문단지벗꽃.jpg);
+}
+
+#여름:checked ~ .경주사계이미지{
+  background-image: url(./img/관성해수욕장.JPG);
+}
+
+#가을:checked ~ .경주사계이미지{
+  background-image: url(./img/통일전은행나무길.jpg);
+}
+
+#겨울:checked ~ .경주사계이미지{
+  background-image: url(./img/교촌마을설경.JPG);
+}
