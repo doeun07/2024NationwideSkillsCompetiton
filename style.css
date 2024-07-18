@@ -422,16 +422,39 @@ input[id="신라오기"]:checked ~ #오기 {
   display: none;
 }
 
+/* 경주축제톻계 */
+.gyeongju_festival {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.gyeongju_festival table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  overflow: hidden;
+  background-color: #ffcc00;
+}
 
-/* #edm:hover {
-  big;
+.gyeongju_festival table tr th td {
+  border: solid black 1px;
 }
-#edm:hover ~ .sadf {
-  small;
+
+.gyeongju_festival td, th {
+  padding: 10px 20px;
+  position: relative;
 }
-#첨성대:hover {
-  big;
+
+.gyeongju_festival tr:not(:has(th)):hover {
+  background-color: rgba(255, 255, 0, 0.5);
 }
-#첨성대:hover ~ .sadf {
-  small;
-} */
+
+.gyeongju_festival td:hover::before,th:hover::before { 
+  background-color: rgba(255, 255, 0, 0.5);
+  content: '';  
+  height: 10000px;    
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%; 
+  pointer-events: none;  
+}
