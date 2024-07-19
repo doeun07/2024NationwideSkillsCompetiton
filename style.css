@@ -397,11 +397,11 @@ footer > div > a:hover {
   height: 500px;
   background-color: white;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
-/* .modal label {
-  color: white;
-} */
 
 .modal label:hover {
   cursor: pointer;
@@ -458,3 +458,34 @@ input[id="신라오기"]:checked ~ #오기 {
   width: 100%; 
   pointer-events: none;  
 }
+
+/* 로그인&회원가입 모달 */
+.menu input[type="radio"] {
+  display: none;
+}
+
+.login_input {
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  border: solid black 1px;
+  border-radius: 10px;
+}
+
+.check {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+}
+
+
+input[id="login"]:checked ~ #loginModal,
+input[id="register"]:checked ~ #registerModal {
+  display: flex;
+}
+
+#check:checked ~ .modal {
+  display: none;
+}             

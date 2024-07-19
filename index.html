@@ -49,11 +49,66 @@
       </ul>
 
       <span class="menu">
-        <a href="#">로그인</a>
-        <a href="#">회원가입</a>
+        <label for="login"> 로그인 </label>
+        <label for="register">회원가입</label>
+        <input id="login" type="radio" name="menu" />
+        <input id="register" type="radio" name="menu" />
+        <input id="check" type="radio" name="menu" />
+        <!-- 로그인&회원가입 모달 시작 -->
+        <div id="loginModal" class="modal">
+          <div class="modal_body">
+            <h3>로그인</h3>
+            <input
+              class="login_input"
+              id="name"
+              type="text"
+              placeholder="  아이디를 입력해주세요."
+            />
+            <input
+              class="login_input"
+              id="password"
+              type="password"
+              placeholder="  비밀번호를 입력해주세요."
+            />
+            <label class="check" for="check">확인</label>
+          </div>
+        </div>
+
+        <div id="registerModal" class="modal">
+          <div class="modal_body">
+            <h3>회원가입</h3>
+            <input
+              class="login_input"
+              id="name"
+              type="text"
+              placeholder="  아이디를 입력해주세요."
+            />
+            <input
+              class="login_input"
+              id="username"
+              type="text"
+              placeholder="  이름을 입력해주세요."
+            />
+            <input
+              class="login_input"
+              id="password"
+              type="password"
+              placeholder="  비밀번호를 입력해주세요."
+            />
+
+            <select class="login_input" name="" id="mb_level">
+              <option value="">일반회원</option>
+              <option value="">기사</option>
+              <option value="">관리자</option>
+            </select>
+            <label class="check" for="check">확인</label>
+          </div>
+        </div>
+        <!-- 로그인&회원가입 모달 끝 -->
       </span>
     </header>
     <!-- 헤더 끝 -->
+
 
     <!-- visual 영역 시작 -->
     <div class="visual">
@@ -299,7 +354,6 @@
         </div>
       </div>
       <!-- 문화행사 -> 모달 끝 -->
-       
 
       <div class="event_imgs">
         <div class="event_img">
@@ -388,8 +442,8 @@
     <!-- 문화행사 영역 끝 -->
 
     <!-- 경주축제통계 영역 시작 -->
-     <div class="gyeongju_festival">
-       <table>
+    <div class="gyeongju_festival">
+      <table>
         <tr>
           <th>월별</th>
           <th>중화권</th>
@@ -398,72 +452,72 @@
           <th>기타</th>
           <th>합계</th>
         </tr>
-         <tr>
+        <tr>
           <td>1월</td>
           <td>1,000명</td>
           <td>2,000명</td>
           <td>3,000명</td>
           <td>4,000명</td>
           <td>10,000명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>2월</td>
           <td>1,100명</td>
           <td>2,100명</td>
           <td>3,100명</td>
           <td>4,100명</td>
           <td>10,001명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>3월</td>
           <td>1,200명</td>
           <td>2,200명</td>
           <td>3,200명</td>
           <td>4,200명</td>
           <td>10,002명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>4월</td>
           <td>1,300명</td>
           <td>2,300명</td>
           <td>3,300명</td>
           <td>4,300명</td>
           <td>10,003명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>5월</td>
           <td>1,400명</td>
           <td>2,400명</td>
           <td>3,400명</td>
           <td>4,400명</td>
           <td>10,004명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>6월</td>
           <td>1,500명</td>
           <td>2,500명</td>
           <td>3,500명</td>
           <td>4,500명</td>
           <td>10,005명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>7월</td>
           <td>1,600명</td>
           <td>2,600명</td>
           <td>3,600명</td>
           <td>4,600명</td>
           <td>10,006명</td>
-         </tr>
-         <tr>
+        </tr>
+        <tr>
           <td>8월</td>
           <td>1,700명</td>
           <td>2,700명</td>
           <td>3,700명</td>
           <td>4,700명</td>
           <td>10,007명</td>
-         </tr>
-       </table>
-     </div>
+        </tr>
+      </table>
+    </div>
     <!-- 경주축제통계 영역 끝 -->
 
     <!-- 푸터 시작 -->
