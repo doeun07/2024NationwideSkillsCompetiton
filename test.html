@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Practice</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Consolas', monospace;
+        }
+
+        #timer {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .circle-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text {
+            position: absolute;
+            white-space: nowrap;
+            font-family: 'Consolas', monospace;
+        }
+
+        input {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .words {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+
+        .word {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .word.completed {
+            background-color: #90ee90;
+            text-decoration: line-through;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate-counter {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">60</div>
+    <div class="words" id="wordList"></div>
+    <div class="circle-container" id="circleContainer"></div>
+    <input type="text" id="inputField" placeholder="Type here..." disabled />
+    <button id="startButton">시작하기</button>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let words = [];
+            fetch('kyungju.json')
+                .then(response => response.json())
+                .then(data => {
+                    words = data.words.map(word => word.name);
+                    initialize();
+                });
+
+            const inputField = document.getElementById('inputField');
+            const timerElement = document.getElementById('timer');
+            const wordList = document.getElementById('wordList');
+            const circleContainer = document.getElementById('circleContainer');
+            const startButton = document.getElementById('startButton');
+            const baseRadius = 150; // 원의 크기를 키움
+            const radiusIncrement = 80; // 간격을 유지하면서 원의 크기를 조정
+            let currentRadius = baseRadius;
+            let maxWordsInCircle = 10;
+            let timeLeft = 60;
+            let timer;
+            let enteredWords = [];
+            let circles = [];
+            let currentCircleWords = [];
+            let currentWordIndex = 0;
+            let circleCount = 0;
+
+            function createCircle(radius, clockwise) {
+                const circle = document.createElement('div');
+                circle.className = 'circle';
+                circle.style.width = `${radius * 2}px`;
+                circle.style.height = `${radius * 2}px`;
+                circle.style.zIndex = -radius;
+                const text = document.createElement('div');
+                text.className = 'text';
+                circle.appendChild(text);
+                circleContainer.appendChild(circle);
+                circles.push({ element: text, clockwise: clockwise });
+                text.style.animation = `rotate${clockwise ? '' : '-counter'} 10s linear infinite`;
+                return text;
+            }
+
+            function updateText(textContainer, words) {
+                const textContent = words.join(' ');
+                const characters = textContent.split('');
+                const angleIncrement = 360 / characters.length;
+
+                textContainer.innerHTML = '';
+
+                characters.forEach((char, i) => {
+                    const angle = i * angleIncrement;
+                    const x = currentRadius * Math.cos(angle * (Math.PI / 180));
+                    const y = currentRadius * Math.sin(angle * (Math.PI / 180));
+                    const span = document.createElement('span');
+                    span.innerText = char;
+                    span.style.position = 'absolute';
+                    span.style.transform = `translate(${x}px, ${y}px) rotate(${angle + 90}deg)`;
+                    textContainer.appendChild(span);
+                });
+            }
+
+            function showWords(startIndex) {
+                wordList.innerHTML = '';
+                for (let i = startIndex; i < startIndex + 8 && i < words.length; i++) {
+                    const wordElement = document.createElement('div');
+                    wordElement.className = 'word';
+                    wordElement.textContent = words[i];
+                    wordList.appendChild(wordElement);
+                }
+            }
+
+            function startTimer() {
+                timer = setInterval(function() {
+                    timeLeft--;
+                    timerElement.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        inputField.disabled = true;
+                        timerElement.textContent = 'Time\'s up!';
+                        startButton.textContent = '다시하기';
+                    }
+                }, 1000);
+            }
+
+            function initialize() {
+                clearInterval(timer);
+                timeLeft = 60;
+                timerElement.textContent = timeLeft;
+                inputField.value = '';
+                inputField.disabled = true;
+                enteredWords = [];
+                circles = [];
+                currentCircleWords = [];
+                currentWordIndex = 0;
+                currentRadius = baseRadius;
+                maxWordsInCircle = 10;
+                circleCount = 0;
+                circleContainer.innerHTML = '';
+                wordList.innerHTML = '';
+                showWords(currentWordIndex);
+                const textContainer = createCircle(currentRadius, circleCount % 2 === 0);
+                updateText(textContainer, currentCircleWords);
+                startButton.textContent = '시작하기';
+            }
+
+            startButton.addEventListener('click', function() {
+                if (startButton.textContent === '시작하기') {
+                    startButton.textContent = '다시하기';
+                    inputField.disabled = false;
+                    inputField.focus();
+                    startTimer();
+                } else {
+                    initialize();
+                }
+            });
+
+            inputField.addEventListener('keyup', function(event) {
+                if (event.key === ' ') {
+                    const currentValue = inputField.value.trim();
+
+                    const wordElement = Array.from(wordList.children).find(
+                        (child) => child.textContent === currentValue && !child.classList.contains('completed')
+                    );
+
+                    if (wordElement) {
+                        wordElement.classList.add('completed');
+                        enteredWords.push(currentValue);
+                        currentCircleWords.push(currentValue);
+
+                        if (currentCircleWords.length >= maxWordsInCircle) {
+                            currentCircleWords = [];
+                            currentRadius += radiusIncrement;
+                            circleCount++;
+                            const textContainer = createCircle(currentRadius, circleCount % 2 === 0);
+                            updateText(textContainer, currentCircleWords);
+                        } else {
+                            const textContainer = circles[circles.length - 1].element;
+                            updateText(textContainer, currentCircleWords);
+                        }
+
+                        setTimeout(() => {
+                            inputField.value = '';
+                        }, 50);
+
+                        if (enteredWords.length % 8 === 0) {
+                            currentWordIndex += 8;
+                            showWords(currentWordIndex);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
